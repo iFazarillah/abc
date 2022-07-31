@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1.0"
+			/>
+			<title>List Karyawan</title>
+		</head>
+		<body>
+			<h1>List Karyawan</h1>
+
+			<div>
+				<nobr>
+					<a th:href="@{/v1/view/karyawan/add}">Add Karyawan</a> |
+					<a th:href="@{/v1/view/karyawan/}">Back to Index</a>
+				</nobr>
+			</div>
+			<br /><br />
+
+			<div>
+				<table border="1">
+					<tr>
+						<th>Nama</th>
+						<th>Jenis Kelamin</th>
+						<th>Tanggal Lahir</th>
+						<th>Alamat</th>
+						<th>Status</th>
+						<th>tools</th>
+					</tr>
+					<tr th:each="karyawan : ${karyawans}">
+						<td>
+							<a
+								th:href="@{/v1/view/karyawan/{karyawanId}(karyawanId=${karyawan.id})}"
+								th:utext="${karyawan.nama}"
+								>...</a
+							>
+						</td>
+						<td>
+							<a th:utext="${karyawan.jk}">...</a>
+						</td>
+						<td>
+							<a th:utext="${karyawan.dob}">...</a>
+						</td>
+						<td>
+							<a th:utext="${karyawan.alamat}">...</a>
+						</td>
+						<td>
+							<a th:utext="${karyawan.status}">...</a>
+						</td>
+						<td>
+							<a
+								th:href="@{/v1/view/karyawan/{karyawanId}/edit(karyawanId=${karyawan.id})}"
+								>Edit</a
+							>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br /><br />
+
+			<div>
+				<nobr>
+					<span th:if="${hasPrev}">
+						<a
+							th:href="@{/v1/view/karyawan/list?page={prev}(prev=${prev})}"
+							>Prev</a
+						>
+						&nbsp;&nbsp;&nbsp;
+					</span>
+					<span th:if="${hasNext}">
+						<a
+							th:href="@{/v1/view/karyawan/list?page={next}(next=${next})}"
+							>Next</a
+						>
+					</span>
+				</nobr>
+			</div>
+		</body>
+	</html>
+</html>

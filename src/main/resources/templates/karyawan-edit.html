@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<meta charset="UTF-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1.0"
+			/>
+			<title
+				th:text="${add} ?'Add data Karyawan' : 'Edit data Karyawan'"
+			></title>
+			<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+		</head>
+
+		<body>
+			<h1
+				th:text="${add} ? 'Add data Karyawan:' : 'Edit data Karyawan:'"
+			></h1>
+			<a th:href="@{/v1/view/karyawan/list}">Back to List Karyawan</a>
+			<br /><br />
+			<form
+				th:action="${add} ? @{/v1/view/karyawan/add} : @{/v1/view/karyawan/{karyawanId}/edit(karyawanId=${karyawan.id})}"
+				th:object="${karyawan}"
+				method="POST"
+			>
+				<table border="0">
+					<tr>
+						<td>Nama</td>
+						<td>:</td>
+						<td><input type="text" th:field="*{nama}" /></td>
+					</tr>
+					<tr>
+						<td>Jenis Kelamin</td>
+						<td>:</td>
+						<td><input type="text" th:field="*{jk}" /></td>
+					</tr>
+					<tr>
+						<td>Tanggal Lahir</td>
+						<td>:</td>
+						<td><input type="text" th:field="*{dob}" /></td>
+					</tr>
+					<tr>
+						<td>Alamat</td>
+						<td>:</td>
+						<td><input type="text" th:field="*{alamat}" /></td>
+					</tr>
+					<tr>
+						<td>Status</td>
+						<td>:</td>
+						<td><input type="text" th:field="*{status}" /></td>
+					</tr>
+				</table>
+				<input type="Submit" th:value="${add} ? 'Create' : 'Update'" />
+			</form>
+			<br />
+
+			<div
+				th:if="${errorMessage}"
+				th:utext="${errorMessage}"
+				class="error"
+			></div>
+		</body>
+	</html>
+</html>

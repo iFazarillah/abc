@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title th:utext="${title}"></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<h1 th:utext="${title}"></h1>
+		<a th:href="@{/v1/view/karyawan/list}"> List Karyawan</a>
+		<br /><br />
+		<div>Copyright 2021</div>
+	</body>
+</html>
