@@ -15,9 +15,10 @@ public class ImplKaryawan implements KaryawanService {
 	@Override
 	public Karyawan save(Karyawan kry) {
 		// TODO Auto-generated method stub
-
-		kry.setId(1L);
+		long num = (long) (Math.random() * 50 + 1);
+		kry.setId(num);
 		listKaryawan.add(kry);
+		System.out.println(kry.getId());
 		return kry;
 	}
 
