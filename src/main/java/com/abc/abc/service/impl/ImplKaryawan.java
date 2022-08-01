@@ -27,12 +27,12 @@ public class ImplKaryawan implements KaryawanService {
 		for (Karyawan data : listKaryawan) {
 			if (kry.getId() == data.getId()) {
 				Karyawan update = new Karyawan();
-				update.setNama(data.getNama());
-				update.setId(data.getId());
-				update.setJk(data.getJk());
-				update.setDob(data.getDob());
-				update.setAlamat(data.getAlamat());
-				update.setStatus(data.getStatus());
+				update.setNama(kry.getNama());
+				update.setId(kry.getId());
+				update.setJk(kry.getJk());
+				update.setDob(kry.getDob());
+				update.setAlamat(kry.getAlamat());
+				update.setStatus(kry.getStatus());
 				listKaryawan.remove(data);
 				listKaryawan.add(update);
 				return update;
