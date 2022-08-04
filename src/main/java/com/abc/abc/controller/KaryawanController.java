@@ -2,6 +2,7 @@ package com.abc.abc.controller;
 
 import java.util.List;
 
+import com.abc.abc.service.KaryawanServiceStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import com.abc.abc.model.Karyawan;
 public class KaryawanController {
 
 	@Autowired
-	public com.abc.abc.service.KaryawanService karyawanService;
+	public KaryawanServiceStatic karyawanServiceStatic;
 
 	private final int ROW_PER_PAGE = 5;
 
@@ -32,7 +33,7 @@ public class KaryawanController {
 
 	@GetMapping(value = "/list")
 	public String getKaryawan(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) {
-		List<Karyawan> karyawans = karyawanService.dataKaryawan(pageNumber, ROW_PER_PAGE);
+		List<Karyawan> karyawans = karyawanServiceStatic.dataKaryawan(pageNumber, ROW_PER_PAGE);
 
 		long count = karyawans == null ? 1 : karyawans.size();
 		boolean hasPrev = pageNumber > 1;
@@ -58,7 +59,7 @@ public class KaryawanController {
 	public String addKaryawan(Model model, @ModelAttribute("Karyawan") Karyawan karyawan) {
 		try {
 			System.out.println("nilai Karyawan karyawan=" + karyawan.getNama());
-			Karyawan newKaryawan = karyawanService.save(karyawan);
+			Karyawan newKaryawan = karyawanServiceStatic.save(karyawan);
 			return "redirect:/v1/view/karyawan/" + String.valueOf(newKaryawan.getId());
 		} catch (Exception ex) {
 			String errorMessage = ex.getMessage();
@@ -71,7 +72,7 @@ public class KaryawanController {
 	@GetMapping(value = { "/{karyawanId}/edit" })
 	public String showEditKaryawan(Model model, @PathVariable long karyawanId) {
 		Karyawan karyawan = null;
-		karyawan = karyawanService.findById(karyawanId);
+		karyawan = karyawanServiceStatic.findById(karyawanId);
 		model.addAttribute("add", false);
 		model.addAttribute("karyawan", karyawan);
 		return "karyawan-edit";
@@ -82,7 +83,7 @@ public class KaryawanController {
 			@ModelAttribute("karyawan") Karyawan karyawan) {
 		try {
 			karyawan.setId(karyawanId);
-			karyawanService.update(karyawan);
+			karyawanServiceStatic.update(karyawan);
 			return "redirect:/v1/view/karyawan/" + String.valueOf(karyawan.getId());
 		} catch (Exception ex) {
 			String errorMessage = ex.getMessage();
@@ -95,7 +96,7 @@ public class KaryawanController {
 	@GetMapping(value = "/{karyawanId}")
 	public String getKaryawanById(Model model, @PathVariable long karyawanId) {
 		Karyawan karyawan = null;
-		karyawan = karyawanService.findById(karyawanId);
+		karyawan = karyawanServiceStatic.findById(karyawanId);
 		model.addAttribute("karyawan", karyawan);
 		return "karyawan";
 	}
@@ -103,7 +104,7 @@ public class KaryawanController {
 	@GetMapping(value = { "/{karyawanId}/delete" })
 	public String showDeleteKaryawanById(Model model, @PathVariable long karyawanId) {
 		Karyawan karyawan = null;
-		karyawan = karyawanService.findById(karyawanId);
+		karyawan = karyawanServiceStatic.findById(karyawanId);
 		model.addAttribute("allowDelete", true);
 		model.addAttribute("karyawan", karyawan);
 		return "karyawan";
@@ -111,7 +112,7 @@ public class KaryawanController {
 
 	@PostMapping(value = { "/{karyawanId}/delete" })
 	public String deleteKaryawanById(Model model, @PathVariable long karyawanId) {
-		karyawanService.deleted(karyawanId);
+		karyawanServiceStatic.deleted(karyawanId);
 		return "redirect:/v1/view/karyawan/list";
 	}
 

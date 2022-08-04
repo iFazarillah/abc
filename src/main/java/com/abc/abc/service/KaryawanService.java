@@ -1,18 +1,20 @@
 package com.abc.abc.service;
 
-import java.util.List;
-
 import com.abc.abc.model.Karyawan;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
 
 public interface KaryawanService {
-	public Karyawan save(Karyawan obj);
 
-	public Karyawan update(Karyawan obj);
+    public Map insert(Karyawan karyawan);
 
-	public List<Karyawan> deleted(Long id);
+    public Map update(Karyawan karyawan);
 
-	public List<Karyawan> dataKaryawan(int row, int page);
+    public Map delete(Long karyawan);
 
-	public Karyawan findById(long kry);
+    public Map getAll(int size, int page);
 
 }
+

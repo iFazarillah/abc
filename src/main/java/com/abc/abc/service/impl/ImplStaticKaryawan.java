@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.abc.abc.model.Karyawan;
-import com.abc.abc.service.KaryawanService;
+import com.abc.abc.service.KaryawanServiceStatic;
 
 @Service
-public class ImplKaryawan implements KaryawanService {
+public class ImplStaticKaryawan implements KaryawanServiceStatic {
 	static List<Karyawan> listKaryawan = new ArrayList<>();
 
 	@Override
