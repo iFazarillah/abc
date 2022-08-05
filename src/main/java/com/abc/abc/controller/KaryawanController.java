@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.abc.abc.model.Karyawan;
 
 @Controller
-@RequestMapping("/v1/view/karyawan")
+@RequestMapping("/v2/view/karyawan")
 public class KaryawanController {
 
 	@Autowired

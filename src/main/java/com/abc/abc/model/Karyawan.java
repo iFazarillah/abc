@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "karyawan")
 @Where(clause = "deleted_date is null")
-public class Karyawan implements Serializable {
+public class Karyawan extends AbstractDate implements Serializable {
 
 	@Id
 	@Column(name = "id")

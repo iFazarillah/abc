@@ -22,7 +22,7 @@ public class KaryawanControllerRest {
     @Autowired
     public TemplateResponse templateResponse;
 
-    @PostMapping("/Java")
+    @PostMapping("/save")
     public ResponseEntity<Map> save(@Valid @RequestBody Karyawan objModel){
         Map obj = karyawanService.insert(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
@@ -41,13 +41,11 @@ public class KaryawanControllerRest {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Map> listByBama(
+    public ResponseEntity<Map> listByNama(
             @RequestParam() Integer page,
             @RequestParam() Integer size) {
         Map list = karyawanService.getAll(size, page);
         return new ResponseEntity<Map>(list, new HttpHeaders(), HttpStatus.OK);
     }
-
-
 
 }
