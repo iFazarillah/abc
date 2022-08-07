@@ -1,0 +1,32 @@
+package com.abc.abc.sp.service;
+
+import com.abc.abc.sp.model.KaryawanMybatis;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+public interface KaryawanServiceMybatis {
+
+    KaryawanMybatis selectBlog(int rqid);
+
+    List<KaryawanMybatis> selectList(String rqname);
+
+    void insertKryOnly(String rqname, String rqjk, Date rqdob, String rqalamat, String rqstatus, int rqid, String errordesc, int errorcode);
+
+    Map savekaryawanwitheror(String inama, Date idob, String ialamat, String istatus, Integer iid, String errorDesc, int errorCode);
+
+    void updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
+
+    void deleteProcedure(int did);
+
+
+
+
+    //    use xml
+//    public Map updateProcedureXML(BarangMybatis item);
+//    List<BarangMybatis> listBarangXML(BarangMybatis item);
+//    BarangMybatis getByIdBarangXML(Integer id);
+
+//    public Map testPS(KaryawanMybatis item);
+}

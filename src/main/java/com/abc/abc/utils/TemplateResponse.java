@@ -16,6 +16,14 @@ public class TemplateResponse {
         return map;
     }
 
+    public Map templateSukses(Object object, String Message, String status){
+        Map map = new HashMap();
+        map.put("data", object);
+        map.put("message", "Sukses");
+        map.put("status", "200");
+        return map;
+    }
+
     public Map templateError(Object object){
         Map map = new HashMap();
         map.put("message", object);
