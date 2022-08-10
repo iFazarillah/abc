@@ -12,11 +12,11 @@ public interface KaryawanServiceMybatis {
 
     List<KaryawanMybatis> selectList(String rqname);
 
-    void insertKryOnly(String rqname, String rqjk, Date rqdob, String rqalamat, String rqstatus, int rqid, String errordesc, int errorcode);
+    void insertKryOnly(String rqname, String rqjk, Date rqdob, String rqalamat, String rqstatus, int rqid);
 
-    Map savekaryawanwitheror(String inama, Date idob, String ialamat, String istatus, Integer iid, String errorDesc, int errorCode);
+    Map savekaryawanwitheror(String inama, Date idob, String ijk, String ialamat, String istatus, Integer iid);
 
-    void updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
+    Map updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
 
     void deleteProcedure(int did);
 

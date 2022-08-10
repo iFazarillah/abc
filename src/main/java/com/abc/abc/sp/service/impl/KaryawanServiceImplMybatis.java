@@ -38,15 +38,16 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     }
 
     @Override
-    public void insertKryOnly(String rqname, String rqjk, Date rqdob, String rqalamat, String rqstatus, int rqid, String errordesc, int errorcode) {
-        karyawanRepoMybatis.insertProcedure(rqname, rqjk, rqdob, rqalamat, rqstatus, rqid, errordesc, errorcode);
+    public void insertKryOnly(String rqname, String rqjk, Date rqdob, String rqalamat, String rqstatus, int rqid) {
+        karyawanRepoMybatis.insertProcedure(rqname, rqjk, rqdob, rqalamat, rqstatus, rqid);
     }
 
     @Override
-    public Map savekaryawanwitheror(String inama, Date idob, String ialamat, String istatus, Integer iid, String errorDesc, int errorCode) {
+    public Map savekaryawanwitheror(String inama, Date idob,String ijk, String ialamat, String istatus, Integer iid) {
         Map<String , Object> map = new HashMap<>();
         map.put("inama",inama);
         map.put("idob",idob);
+        map.put("ijk",ijk);
         map.put("ialamat",ialamat);
         map.put("istatus",istatus);
         map.put("iid",( iid == null ? 0: iid));
@@ -57,6 +58,7 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
         System.out.println("resid ="+(Integer) map.get("iid"));
         System.out.println("resnama ="+(String) map.get("inama"));
         System.out.println("resdob ="+(Date) map.get("idob"));
+        System.out.println("resjk ="+(String) map.get("ijk"));
         System.out.println("resalamat ="+(String) map.get("ialamat"));
         System.out.println("resstatus ="+(String) map.get("istatus"));
         System.out.println("reserrordesc ="+(String) map.get("errorDesc"));
@@ -66,14 +68,16 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
         objKaryawan.setId(Long.parseLong(String.valueOf((Integer) map.get("iid"))));
         objKaryawan.setNama((String) map.get("inama"));
         objKaryawan.setDob((Date) map.get("idob"));
+        objKaryawan.setJk((String) map.get("ijk"));
         objKaryawan.setAlamat((String) map.get("ialamat"));
         objKaryawan.setStatus((String) map.get("istatus"));
         return     templateResponse.templateSukses(objKaryawan,(String) map.get("errorDesc"), String.valueOf((Integer) map.get("errorCode")));
     }
 
     @Override
-    public void updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid) {
+    public Map updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid) {
         karyawanRepoMybatis.updateKryOnly(unama, ujk, udob, ualamat, ustatus, uid);
+        return null;
     }
 
     @Override
