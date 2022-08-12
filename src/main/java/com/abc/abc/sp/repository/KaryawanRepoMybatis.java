@@ -11,8 +11,8 @@ import java.util.Map;
 @Mapper
 public interface KaryawanRepoMybatis {
 
-    @Select("SELECT resid, resnama ,resjk, resdob, resalamat, resstatus, rescreated_date, resupdated_date, resdeleted_date FROM public.getkaryawanbyid(#{rqId});")
-    KaryawanMybatis selectBlog(int rqid);
+    @Select("SELECT resid, resnama ,resjk, resdob, resalamat, resstatus FROM public.getkaryawanbyid(#{rqId});")
+    KaryawanMybatis selectBlog(Integer rqid);
 
     @Select("select resid, resnama ,resjk, resdob, resalamat, resstatus, rescreated_date, resupdated_date, resdeleted_date from public.getkaryawanbyname(#{rqNama});")
     List<KaryawanMybatis> selectList(String rqnama);
@@ -37,12 +37,12 @@ public interface KaryawanRepoMybatis {
             "#{error_desc,mode=INOUT,jdbcType=VARCHAR}," +
             "#{error_code,mode=INOUT,jdbcType=INTEGER})")
     @Options(statementType = StatementType.CALLABLE)
-    void savekaryawanwitheror(Map<String,Object> map);
+    void savekaryawanwitheror(Map<String, Object> map);
 
     @Update(value = "call public.updatekaryawanonly(#{unama,mode=INOUT},#{ujk,mode=INOUT},#{udob,mode=INOUT},#{ualamat,mode=INOUT},#{ustatus,mode=INOUT},#{uid,mode=INOUT});")
     void updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
 
-    @Update("call deletebarang(#{did,mode=IN})")
+    @Update("call softdeletekaryawan(#{did,mode=IN})")
     void deleteProcedure(int did);
 
 

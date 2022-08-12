@@ -25,7 +25,6 @@ public class KaryawanControllerMyBatis {
     public TemplateResponse templateResponse;
 
 
-
     @PostMapping("/save")
     public ResponseEntity<Map> save(@RequestBody Karyawan objModel) {
         Map map = karyawanServiceMybatis.savekaryawanwitheror(
@@ -59,7 +58,7 @@ public class KaryawanControllerMyBatis {
     @GetMapping("/list")
     public ResponseEntity<Map> listByNama(
             @RequestParam(required = false) String nama) {
-        List<KaryawanMybatis> list = karyawanServiceMybatis.selectList("%"+nama+"%");
+        List<KaryawanMybatis> list = karyawanServiceMybatis.selectList("%" + nama + "%");
         return new ResponseEntity<Map>(templateResponse.templateSukses(templateResponse.convertToKaryawan(list)), new HttpHeaders(), HttpStatus.OK);
     }
 

@@ -1,6 +1,8 @@
 package com.abc.abc.sp.testing;
 
 import com.abc.abc.utils.QueryPS;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -26,7 +30,7 @@ public class KaryawanJunitRestTemplateMybatis {
     QueryPS queryPS;
 
     @Test
-    public void callAllSP(){
+    public void callAllSP() {
         // Mmebuat Prosedure lewat APlikasi spring boot
         jdbcTemplate.execute(queryPS.saveKaryawanOnlySP);
         jdbcTemplate.execute(queryPS.updateKryOnly);
@@ -52,20 +56,20 @@ public class KaryawanJunitRestTemplateMybatis {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
-        Integer id = 1;
-        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/karyawan/"+id, HttpMethod.GET, null, String.class);
+        Integer id = 31;
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/karyawan/" + id, HttpMethod.GET, null, String.class);
         System.out.println("response  =" + exchange.getBody());
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
     }
 
     @Test
-    public void  saveSukses() {
+    public void saveSukses() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
         String bodyTesting = "{\n" +
                 "\"id\":\"0\",\n" +
-                "\"nama\":\"karyawan baru 3\",\n" +
+                "\"nama\":\"Test insert karyawan\",\n" +
                 "\"dob\":\"951220\",\n" +
                 "\"jk\":\"Perempuan\",\n" +
                 "\"alamat\":\"Jakarta\",\n" +
@@ -81,17 +85,17 @@ public class KaryawanJunitRestTemplateMybatis {
     }
 
     @Test
-    public void  updateSukses() {
+    public void updateSukses() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
         String bodyTesting = "{\n" +
-                "\"id\":\"25\",\n" +
-                "\"nama\":\"Karyawan update 3\",\n" +
+                "\"id\":\"26\",\n" +
+                "\"nama\":\"Karyawan test update 24\",\n" +
                 "\"dob\":\"2005-12-20\",\n" +
-                "\"jk\":\"Perempuan\",\n" +
+                "\"jk\":\"Laki-laki\",\n" +
                 "\"alamat\":\"Jakarta Selatan\",\n" +
-                "\"status\":\"Belum Menikah\"\n"+
+                "\"status\":\"Menikah\"\n" +
                 "}";
         HttpEntity<String> entity = new HttpEntity<String>(bodyTesting, headers);
 
@@ -99,5 +103,18 @@ public class KaryawanJunitRestTemplateMybatis {
 
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         System.out.println("response  =" + exchange.getBody());
+
     }
+
+    @Test
+    public void deleteSukses() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "*/*");
+        headers.set("Content-Type", "application/json");
+        Integer id = 25;
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/delete/" + id, HttpMethod.DELETE, null, String.class);
+        System.out.println("response  =" + exchange.getBody());
+        Assert.assertEquals(HttpStatus.OK, exchange.getStatusCode());
+    }
+
 }

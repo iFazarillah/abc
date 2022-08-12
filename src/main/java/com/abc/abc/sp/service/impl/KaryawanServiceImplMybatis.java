@@ -28,7 +28,7 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     QueryPS queryPS;
 
     @Override
-    public KaryawanMybatis selectBlog(int rqid) {
+    public KaryawanMybatis selectBlog(Integer rqid) {
         return karyawanRepoMybatis.selectBlog(rqid);
     }
 
@@ -43,26 +43,26 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     }
 
     @Override
-    public Map savekaryawanwitheror(String inama, Date idob,String ijk, String ialamat, String istatus, Integer iid) {
-        Map<String , Object> map = new HashMap<>();
-        map.put("inama",inama);
-        map.put("idob",idob);
-        map.put("ijk",ijk);
-        map.put("ialamat",ialamat);
-        map.put("istatus",istatus);
-        map.put("iid",( iid == null ? 0: iid));
-        map.put("errorDesc",null);
-        map.put("errorCode",null);
+    public Map savekaryawanwitheror(String inama, Date idob, String ijk, String ialamat, String istatus, Integer iid) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("inama", inama);
+        map.put("idob", idob);
+        map.put("ijk", ijk);
+        map.put("ialamat", ialamat);
+        map.put("istatus", istatus);
+        map.put("iid", (iid == null ? 0 : iid));
+        map.put("errorDesc", null);
+        map.put("errorCode", null);
         karyawanRepoMybatis.savekaryawanwitheror(map);
 
-        System.out.println("resid ="+(Integer) map.get("iid"));
-        System.out.println("resnama ="+(String) map.get("inama"));
-        System.out.println("resdob ="+(Date) map.get("idob"));
-        System.out.println("resjk ="+(String) map.get("ijk"));
-        System.out.println("resalamat ="+(String) map.get("ialamat"));
-        System.out.println("resstatus ="+(String) map.get("istatus"));
-        System.out.println("reserrordesc ="+(String) map.get("errorDesc"));
-        System.out.println("reserrorcode ="+(String) map.get("errorCode"));
+        System.out.println("resid =" + (Integer) map.get("iid"));
+        System.out.println("resnama =" + (String) map.get("inama"));
+        System.out.println("resdob =" + (Date) map.get("idob"));
+        System.out.println("resjk =" + (String) map.get("ijk"));
+        System.out.println("resalamat =" + (String) map.get("ialamat"));
+        System.out.println("resstatus =" + (String) map.get("istatus"));
+        System.out.println("reserrordesc =" + (String) map.get("errorDesc"));
+        System.out.println("reserrorcode =" + (String) map.get("errorCode"));
 
         Karyawan objKaryawan = new Karyawan();
         objKaryawan.setId(Long.parseLong(String.valueOf((Integer) map.get("iid"))));
@@ -71,7 +71,7 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
         objKaryawan.setJk((String) map.get("ijk"));
         objKaryawan.setAlamat((String) map.get("ialamat"));
         objKaryawan.setStatus((String) map.get("istatus"));
-        return     templateResponse.templateSukses(objKaryawan,(String) map.get("errorDesc"), String.valueOf((Integer) map.get("errorCode")));
+        return templateResponse.templateSukses(objKaryawan, (String) map.get("errorDesc"), String.valueOf((Integer) map.get("errorCode")));
     }
 
     @Override

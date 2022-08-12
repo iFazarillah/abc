@@ -8,7 +8,8 @@ import java.util.Map;
 
 public interface KaryawanServiceMybatis {
 
-    KaryawanMybatis selectBlog(int rqid);
+
+    KaryawanMybatis selectBlog(Integer rqid);
 
     List<KaryawanMybatis> selectList(String rqname);
 
@@ -19,8 +20,6 @@ public interface KaryawanServiceMybatis {
     Map updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
 
     void deleteProcedure(int did);
-
-
 
 
     //    use xml
