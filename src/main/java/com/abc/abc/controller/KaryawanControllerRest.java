@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/karyawan/")
+@RequestMapping("/v3/karyawan/")
 public class KaryawanControllerRest {
 
     @Autowired
@@ -23,8 +23,8 @@ public class KaryawanControllerRest {
     public TemplateResponse templateResponse;
 
     @PostMapping("/save")
-    public ResponseEntity<Map> save(@Valid @RequestBody Karyawan objModel){
-        Map obj = karyawanService.insert(objModel);
+    public ResponseEntity<Map> save(@Valid @RequestBody Karyawan objModel) {
+        Map obj = karyawanService.insertKryOnly(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
     }
 

@@ -2,7 +2,9 @@ package com.abc.abc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,5 +39,19 @@ public class Karyawan extends AbstractDate implements Serializable {
 
 	@Column(name = "status", length = 15)
 	private String status;
+
+	@OneToOne(mappedBy = "karyawan")
+	private DetailKaryawan detailKaryawan;
+
+	@OneToMany(mappedBy = "karyawan")
+	List<KaryawanTraining> karyawanTrainings;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "karyawan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Rekening> rekenings;
+
+
+
+
 
 }

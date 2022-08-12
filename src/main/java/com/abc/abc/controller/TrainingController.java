@@ -1,8 +1,9 @@
 package com.abc.abc.controller;
 
-import com.abc.abc.model.Karyawan;
-import com.abc.abc.repository.KaryawanRepository;
-import com.abc.abc.service.KaryawanService;
+import com.abc.abc.model.Training;
+import com.abc.abc.repository.TrainingRepository;
+import com.abc.abc.service.TrainingService;
+import com.abc.abc.utils.SimpleStringUtils;
 import com.abc.abc.utils.TemplateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,50 +19,52 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("v1/karyawan")
-public class KaryawanController {
+@RequestMapping("v1/training")
+public class TrainingController {
 
     @Autowired
-    KaryawanService karyawanService;
+    public TrainingService trainingService;
 
     @Autowired
-    public KaryawanRepository karyawanRepository;
+    public TrainingRepository trainingRepository;
 
     @Autowired
     public TemplateResponse templateResponse;
 
-    @PostMapping("/add")
-    public ResponseEntity<Map> save(@RequestBody Karyawan objModel) {
+    SimpleStringUtils simpleStringUtils = new SimpleStringUtils();
+
+    @PostMapping("/save")
+    public ResponseEntity<Map> save(@RequestBody Training objModel) {
         Map map = new HashMap();
-        Map obj = karyawanService.insertKryAndDetail(objModel);
+        Map obj = (Map) trainingRepository.save(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Map> update(@RequestBody Karyawan objModel) {
-        Map obj = karyawanService.updateKryAndDetail(objModel);
+    public ResponseEntity<Map> update(@RequestBody Training objModel) {
+        Map obj = trainingService.update(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map> delete(@PathVariable(value = "id") Long id) {
-        Map map = karyawanService.delete(id);
+        Map map = trainingService.delete(id);
         return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Map> listByBama(
+    public ResponseEntity<Map> listByTema(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
-            @RequestParam(required = false) String nama) {
+            @RequestParam(required = false) String tema) {
         Map map = new HashMap();
-        Page<Karyawan> list = null;
+        Page<Training> list = null;
         Pageable show_data = PageRequest.of(page, size, Sort.by("id").descending());//batasin roq
 
-        if ( nama != null && !nama.isEmpty() ) {
-            list = karyawanRepository.findByNama("%" + nama + "%", show_data);
+        if ( tema != null && !tema.isEmpty() ) {
+            list = trainingRepository.findByTema("%" + tema + "%", show_data);
         } else {
-            list = karyawanRepository.getAllData(show_data);
+            list = trainingRepository.getAllData(show_data);
         }
         return new ResponseEntity<Map>(templateResponse.templateSukses(list), new HttpHeaders(), HttpStatus.OK);
     }
