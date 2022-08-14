@@ -112,7 +112,7 @@ public class KaryawanJunitRestTemplateMybatis {
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
         Integer id = 25;
-        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/delete/" + id, HttpMethod.DELETE, null, String.class);
+        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/karyawan/delete/" + id, HttpMethod.PUT, null, String.class);
         System.out.println("response  =" + exchange.getBody());
         Assert.assertEquals(HttpStatus.OK, exchange.getStatusCode());
     }

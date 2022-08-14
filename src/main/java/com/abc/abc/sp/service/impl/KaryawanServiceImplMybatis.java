@@ -78,12 +78,14 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     public Map updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid) {
         karyawanRepoMybatis.updateKryOnly(unama, ujk, udob, ualamat, ustatus, uid);
         return null;
+
     }
 
     @Override
-    public void deleteProcedure(int did) {
+    public Map deleteProcedure(int did) {
         karyawanRepoMybatis.deleteProcedure(did);
 
+        return null;
     }
 
 

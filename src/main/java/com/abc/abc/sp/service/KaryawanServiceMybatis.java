@@ -19,7 +19,7 @@ public interface KaryawanServiceMybatis {
 
     Map updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
 
-    void deleteProcedure(int did);
+    Map deleteProcedure(int did);
 
 
     //    use xml

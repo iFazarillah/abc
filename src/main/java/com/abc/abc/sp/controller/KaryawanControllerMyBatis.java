@@ -63,9 +63,15 @@ public class KaryawanControllerMyBatis {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map> delete(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<Map> selectById(@PathVariable(value = "id") Integer id) {
         KaryawanMybatis obj = karyawanServiceMybatis.selectBlog(id);
         return new ResponseEntity<Map>(templateResponse.templateSukses(templateResponse.convertToKaryawan(obj)), HttpStatus.OK);
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<Map> delete(@PathVariable(value = "id") Integer id) {
+        Map map = karyawanServiceMybatis.deleteProcedure(id);
+        return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 
 }
