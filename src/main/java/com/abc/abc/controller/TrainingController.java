@@ -35,9 +35,9 @@ public class TrainingController {
 
     @PostMapping("/save")
     public ResponseEntity<Map> save(@RequestBody Training objModel) {
-        Map map = new HashMap();
-        Map obj = (Map) trainingRepository.save(objModel);
+        Map obj = trainingService.insert(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
+
     }
 
     @PutMapping("/update")

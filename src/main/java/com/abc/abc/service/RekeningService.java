@@ -17,5 +17,7 @@ public interface RekeningService {
 
     public Map update(Rekening rekening, Long idkaryawan);
 
+    public Map findById(Long id);
+
 
 }

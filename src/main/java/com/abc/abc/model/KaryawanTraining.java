@@ -1,5 +1,7 @@
 package com.abc.abc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,15 +22,6 @@ public class KaryawanTraining extends AbstractDate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "tangal_training")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyMMdd")
-    private Date tanggalTraining;
-
-
-//    @ManyToMany(targetEntity = Karyawan.class, mappedBy = "karyawanTrainingList", cascade = CascadeType.ALL)
-//    private List<Karyawan> karyawanList;
-
     @ManyToOne
     @JoinColumn(name = "training_id")
     Training training;
@@ -37,10 +30,14 @@ public class KaryawanTraining extends AbstractDate implements Serializable {
     @JoinColumn(name = "karyawan_id")
     Karyawan karyawan;
 
+    @Column(name = "tangal_training")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyMMdd")
+    private Date tanggalTraining;
 
 
-
-
+//    @ManyToMany(targetEntity = Karyawan.class, mappedBy = "karyawanTrainingList", cascade = CascadeType.ALL)
+//    private List<Karyawan> karyawanList;
 
 
 }

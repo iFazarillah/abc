@@ -23,6 +23,8 @@ public interface KaryawanService {
 
     public Map findByNama(String nama, Integer page, Integer size);
 
+    public Map findById(Long id);
+
     Page<Karyawan> findByNamaLike(String nama, Pageable pageable);
 
 

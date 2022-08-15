@@ -42,7 +42,7 @@ public interface KaryawanRepoMybatis {
     @Update(value = "call public.updatekaryawanonly(#{unama,mode=INOUT},#{ujk,mode=INOUT},#{udob,mode=INOUT},#{ualamat,mode=INOUT},#{ustatus,mode=INOUT},#{uid,mode=INOUT});")
     void updateKryOnly(String unama, String ujk, Date udob, String ualamat, String ustatus, int uid);
 
-    @Update("call softdeletekaryawan(#{did,mode=IN})")
+    @Update("call public.softdeletekaryawan(#{did,mode=IN});")
     void deleteProcedure(int did);
 
 

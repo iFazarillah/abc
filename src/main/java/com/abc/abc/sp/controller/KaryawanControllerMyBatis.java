@@ -69,8 +69,8 @@ public class KaryawanControllerMyBatis {
     }
 
     @PutMapping("/delete/{id}")
-    public ResponseEntity<Map> delete(@PathVariable(value = "id") Integer id) {
-        Map map = karyawanServiceMybatis.deleteProcedure(id);
+    public ResponseEntity<Map> delete(@PathVariable(value = "id") Integer did) {
+        Map map = karyawanServiceMybatis.deleteProcedure(did);
         return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 

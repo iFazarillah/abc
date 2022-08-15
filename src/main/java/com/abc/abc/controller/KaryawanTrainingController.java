@@ -32,19 +32,19 @@ public class KaryawanTrainingController {
     @Autowired
     public TemplateResponse templateResponse;
 
-    @PostMapping("")
+    @PostMapping("/save")
     public ResponseEntity<Map> save(@RequestBody KaryawanTrainingRequest objModel) {
         Map obj = karyawanTrainingService.insert(objModel);
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PutMapping("/update")
     public ResponseEntity<Map> update(@RequestBody KaryawanTrainingRequest objModel) {
         Map map = karyawanTrainingService.update(objModel);
         return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map> delete(@PathVariable(value = "id") Long id) {
         Map map = karyawanTrainingService.delete(id);
         return new ResponseEntity<Map>(map, HttpStatus.OK);
@@ -60,14 +60,14 @@ public class KaryawanTrainingController {
         Page<KaryawanTraining> list = null;
         Pageable show_data = PageRequest.of(page, size, Sort.by("id").descending());//batasin roq
 
-        if ( namaKaryawan != null && !namaKaryawan.isEmpty() ) {
+        if ( namaKaryawan != null ) {
             list = karyawanTrainingRepository.findByKaryawanNamaLike("%" + namaKaryawan + "%", show_data);
-        }
-        if ( temaTraining != null && !temaTraining.isEmpty() ) {
+        } else if ( temaTraining != null && !temaTraining.isEmpty() ) {
             list = karyawanTrainingRepository.findByTrainingTemaLike("%" + temaTraining + "%", show_data);
         } else {
-            list = karyawanTrainingRepository.getAllData(show_data);
+            list = karyawanTrainingRepository.findAll(show_data);
         }
         return new ResponseEntity<Map>(templateResponse.templateSukses(list), new HttpHeaders(), HttpStatus.OK);
     }
+
 }

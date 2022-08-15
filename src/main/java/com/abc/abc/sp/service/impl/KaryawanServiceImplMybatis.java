@@ -84,7 +84,6 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     @Override
     public Map deleteProcedure(int did) {
         karyawanRepoMybatis.deleteProcedure(did);
-
         return null;
     }
 

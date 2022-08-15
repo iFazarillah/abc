@@ -61,7 +61,7 @@ public class KaryawanTrainingImpl implements KaryawanTrainingService {
             saveDate.setTraining(trainingNew);
 
             KaryawanTraining saveKryTraining = karyawanTrainingRepository.save(saveDate);
-            return templateResponse.templateSukses(saveDate);
+            return templateResponse.templateSukses(saveKryTraining);
 
         } catch ( Exception e ) {
             return templateResponse.templateError(e);
@@ -99,7 +99,7 @@ public class KaryawanTrainingImpl implements KaryawanTrainingService {
             //update disini
             checkKryTraining.setTraining(checkTraining);
             checkKryTraining.setKaryawan(checkKry);
-            checkKryTraining.setTanggalTraining(checkKryTraining.getTanggalTraining());
+            checkKryTraining.setTanggalTraining(obj.getTanggalTraining());
             checkKryTraining.setUpdated_date(new Date());
             KaryawanTraining saveUpdate = karyawanTrainingRepository.save(checkKryTraining);
             return templateResponse.templateSukses(saveUpdate);
@@ -115,18 +115,14 @@ public class KaryawanTrainingImpl implements KaryawanTrainingService {
             if ( templateResponse.checkNull(obj) ) {
                 return templateResponse.templateError("Id Karyawan Training is required");
             }
-            //            1. chek id barang
             KaryawanTraining checkKryTraining = karyawanTrainingRepository.getbyID(obj);
             if ( templateResponse.checkNull(checkKryTraining) ) {
                 return templateResponse.templateError("Id Karyawan Training Not found");
             }
-
-//            2. update , tanggal deleted saja
             checkKryTraining.setDeleted_date(new Date());//
             karyawanTrainingRepository.save(checkKryTraining);
 
             return templateResponse.templateSukses("sukses deleted");
-
         } catch ( Exception e ) {
             return templateResponse.templateError(e);
         }

@@ -1,5 +1,6 @@
 package com.abc.abc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
@@ -20,13 +21,14 @@ public class Rekening extends AbstractDate implements Serializable {
     @Column(name = "nama", length = 45)
     private String nama;
 
-    @Column(name = "jenis", length = 10)
+    @Column(name = "jenis", length = 20)
     private String jenis;
 
     @Column(name = "nomor", length = 10)
     private String nomor;
 
     @ManyToOne(targetEntity = Karyawan.class)
+    @JsonIgnoreProperties("karyawan")
     private Karyawan karyawan;
 
 

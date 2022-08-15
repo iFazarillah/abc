@@ -30,11 +30,10 @@ public class KaryawanController {
     @Autowired
     public TemplateResponse templateResponse;
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public ResponseEntity<Map> save(@RequestBody Karyawan objModel) {
-        Map map = new HashMap();
         Map obj = karyawanService.insertKryAndDetail(objModel);
-        return new ResponseEntity<Map>(obj, HttpStatus.OK);
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
     @PutMapping("/update")
@@ -43,6 +42,7 @@ public class KaryawanController {
         return new ResponseEntity<Map>(obj, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map> delete(@PathVariable(value = "id") Long id) {
         Map map = karyawanService.delete(id);
@@ -50,20 +50,26 @@ public class KaryawanController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Map> listByBama(
+    public ResponseEntity<Map> listByNama(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
             @RequestParam(required = false) String nama) {
         Map map = new HashMap();
         Page<Karyawan> list = null;
         Pageable show_data = PageRequest.of(page, size, Sort.by("id").descending());//batasin roq
-
         if ( nama != null && !nama.isEmpty() ) {
-            list = karyawanRepository.findByNama("%" + nama + "%", show_data);
+            list = karyawanRepository.findByNamaLike("%" + nama + "%", show_data);
         } else {
             list = karyawanRepository.getAllData(show_data);
         }
         return new ResponseEntity<Map>(templateResponse.templateSukses(list), new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map> selectById(@PathVariable(value = "id") Long id) {
+        Map karyawan = karyawanService.findById(id);
+        return new ResponseEntity<Map>(templateResponse.templateSukses(karyawan), HttpStatus.OK);
+
     }
 
 

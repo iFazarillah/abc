@@ -1,6 +1,8 @@
 package com.abc.abc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Where;
 
@@ -25,11 +27,10 @@ public class Training extends AbstractDate implements Serializable {
     @Column(name = "nama_pengajar", length = 45)
     private String nama_pengajar;
 
-    @OneToOne(mappedBy = "training")
-    private KaryawanTraining karyawanTraining;
 
-    @OneToMany(mappedBy = "training")
-    List<KaryawanTraining> karyawanTrainings;
+//    @OneToMany(mappedBy = "training")
+//    @JsonIgnoreProperties("training")
+//    List<KaryawanTraining> karyawanTrainings;
 
 
 }

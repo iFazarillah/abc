@@ -86,24 +86,22 @@ public class QueryPS {
             """;
 
     public String deleteKryOnly = """
-            CREATE OR REPLACE PROCEDURE public.softdeletekaryawan(did bigint)
+            CREATE OR REPLACE PROCEDURE public.softdeletekaryawan(IN did bigint)
              LANGUAGE plpgsql
             AS $procedure$
             	begin
-            		if not exists (select id from rekening where id = did)\s
-            			then raise notice 'id tidak ada';
-            			return;
-            		else
-            			raise notice 'id ada';
-            		end if;
-            	
-            		update public.karyawan \s
-            		set
-            		deleted_date = now()
-            		where id = did;\s
-            		commit;
-                            
-            	END;
+             		if not exists (select id from rekening where id = did)\s
+             			then raise notice 'id tidak ada';
+             		else
+             			raise notice 'id ada';
+             		end if;
+             
+             		update public.karyawan \s
+             		set deleted_date = now()
+             		where id = did;\s
+             		commit;
+             
+             	END;
             $procedure$
             ;
                             

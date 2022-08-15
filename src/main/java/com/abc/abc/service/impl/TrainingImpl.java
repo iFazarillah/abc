@@ -15,6 +15,7 @@ import java.util.Map;
 @Service
 public class TrainingImpl implements TrainingService {
 
+    @Autowired
     public TrainingRepository trainingRepository;
 
     public static final Logger log = LoggerFactory.getLogger(KaryawanImpl.class);
@@ -49,7 +50,7 @@ public class TrainingImpl implements TrainingService {
             if ( templateResponse.checkNull(updateTraining) ) {
                 return templateResponse.templateError("Id Barang Not found");
             }
-
+            
             updateTraining.setTema(obj.getTema());
             updateTraining.setNama_pengajar(obj.getNama_pengajar());
             updateTraining.setUpdated_date(new Date());

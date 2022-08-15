@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "detail_karyawan")
-@Where(clause = "deleted_date is null")
 public class DetailKaryawan implements Serializable {
 
     @Id
@@ -23,8 +22,8 @@ public class DetailKaryawan implements Serializable {
     @Column(name = "npwp", length = 10)
     private String npwp;
 
-    @OneToOne (targetEntity = Karyawan.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="id_karyawan", referencedColumnName = "id")
+    @OneToOne(targetEntity = Karyawan.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_karyawan", referencedColumnName = "id")
     private Karyawan karyawan;
 
 

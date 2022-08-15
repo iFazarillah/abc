@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface DetailKaryawanRepository extends PagingAndSortingRepository<DetailKaryawan, Long> {
 
     @Query("select c from DetailKaryawan c WHERE c.id = :id")
-    public DetailKaryawan getbyID(@Param("id") Long id);
+    public DetailKaryawan getByID(@Param("id") Long id);
 
 
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class RekeningImpl implements RekeningService {
@@ -56,9 +57,6 @@ public class RekeningImpl implements RekeningService {
             if ( templateResponse.checkNull(obj.getId()) ) {
                 return templateResponse.templateError("Id Rekening is required");
             }
-            if ( templateResponse.checkNull(obj.getKaryawan()) ) {
-                return templateResponse.templateError("Data Karyawan is required");
-            }
             Rekening updateRekening = rekeningRepository.getbyID(obj.getId());
             if ( templateResponse.checkNull(updateRekening) ) {
                 return templateResponse.templateError("Id Barang Not found");
@@ -89,8 +87,7 @@ public class RekeningImpl implements RekeningService {
             if ( templateResponse.checkNull(deleteRekening) ) {
                 return templateResponse.templateError("Id Rekening Not found");
             }
-
-            deleteRekening.setDeleted_date(new Date());//
+            deleteRekening.setDeleted_date(new Date());
             rekeningRepository.save(deleteRekening);
 
             return templateResponse.templateSukses("sukses deleted");
@@ -115,12 +112,12 @@ public class RekeningImpl implements RekeningService {
             if ( templateResponse.checkNull(idkaryawan) ) {
                 return templateResponse.templateError("Id Karyawan is requiered");
             }
-            Karyawan chekId = karyawanRepository.getByID(idkaryawan);
-            if ( templateResponse.checkNull(chekId) ) {
-                return templateResponse.templateError("Id Supplier NOt found");
+            Karyawan checkId = karyawanRepository.getByID(idkaryawan);
+            if ( templateResponse.checkNull(checkId) ) {
+                return templateResponse.templateError("Id Karyawan NOt found");
             }
             //do save
-            rekening.setKaryawan(chekId);
+            rekening.setKaryawan(checkId);
             Rekening rekeningSave = rekeningRepository.save(rekening);
             return templateResponse.templateSukses(rekeningSave);
         } catch ( Exception e ) {
@@ -166,6 +163,28 @@ public class RekeningImpl implements RekeningService {
             return templateResponse.templateError(e);
         }
     }
+
+    @Override
+    public Map findById(Long id) {
+        try {
+            Optional<Rekening> findRekening = rekeningRepository.findById(id);
+            return templateResponse.templateSukses(findRekening);
+        } catch ( Exception e ) {
+            log.error("error disini : " + e);
+            return templateResponse.templateError(e);
+        }
+    }
+
+//    @Override
+//    public Map findById(Long idkaryawan) {
+//        try {
+//            MAP<Rekening> listRekening = rekeningRepository.getByIdKaryawan(idkaryawan);
+//            return templateResponse.templateSukses(listRekening);
+//        } catch ( Exception e ) {
+//            log.error("error disini : " + e);
+//            return templateResponse.templateError(e);
+//        }
+//    }
 
 
 }

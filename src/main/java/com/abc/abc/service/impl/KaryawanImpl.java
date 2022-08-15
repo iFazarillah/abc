@@ -5,7 +5,6 @@ import com.abc.abc.model.DetailKaryawan;
 import com.abc.abc.model.Karyawan;
 import com.abc.abc.repository.DetailKaryawanRepository;
 import com.abc.abc.repository.KaryawanRepository;
-import com.abc.abc.repository.RekeningRepository;
 import com.abc.abc.service.KaryawanService;
 import com.abc.abc.utils.TemplateResponse;
 import org.slf4j.Logger;
@@ -19,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class KaryawanImpl implements KaryawanService {
 
@@ -37,13 +38,13 @@ public class KaryawanImpl implements KaryawanService {
     public Map insertKryOnly(Karyawan karyawan) {
 
         try {
-            if (templateResponse.checkNull(karyawan.getNama())) {
+            if ( templateResponse.checkNull(karyawan.getNama()) ) {
                 return templateResponse.templateError("Nama is required");
             }
             Karyawan kryObj = karyawanRepository.save(karyawan);
             log.info("{}", "Sukses");
             return templateResponse.templateSukses(kryObj);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             log.info("{}", "Eror" + e);
             return templateResponse.templateError(e);
         }
@@ -54,20 +55,18 @@ public class KaryawanImpl implements KaryawanService {
         try {
 
 //            1. validasi
-            if (templateResponse.checkNull(karyawan.getNama())) {
+            if ( templateResponse.checkNull(karyawan.getNama()) ) {
                 return templateResponse.templateError("Nama is Requiered");
             }
 //            2. check detail
-            if (templateResponse.checkNull(karyawan.getDetailKaryawan())) {
+            if ( templateResponse.checkNull(karyawan.getDetailKaryawan()) ) {
                 return templateResponse.templateError("Karyawan's detail is Requiered");
             }
-            if (templateResponse.checkNull(karyawan.getDetailKaryawan().getNik())) {
+            if ( templateResponse.checkNull(karyawan.getDetailKaryawan().getNik()) ) {
                 return templateResponse.templateError("NIK is Requiered");
             }
-            if (templateResponse.checkNull(karyawan.getRekenings())){
-                
-            }
-            ;
+
+
 //            3. insert karyawan
 
             Karyawan dataKaryawan = new Karyawan();
@@ -82,9 +81,10 @@ public class KaryawanImpl implements KaryawanService {
             DetailKaryawan dataDetailKry = new DetailKaryawan();
             dataDetailKry.setNik(karyawan.getDetailKaryawan().getNik());
             dataDetailKry.setNpwp(karyawan.getDetailKaryawan().getNpwp());
+            dataDetailKry.setKaryawan(karyawanNew);
             DetailKaryawan detailKryNew = detailKaryawanRepository.save(dataDetailKry);
             return templateResponse.templateSukses(karyawanNew);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             return templateResponse.templateError(e);
         }
 
@@ -95,11 +95,11 @@ public class KaryawanImpl implements KaryawanService {
     public Map update(Karyawan kryReq) {
         try {
 
-            if (templateResponse.checkNull(kryReq.getId())) {
+            if ( templateResponse.checkNull(kryReq.getId()) ) {
                 return templateResponse.templateError("Id Barang is required");
             }
             Karyawan checkIdKry = karyawanRepository.getByID(kryReq.getId());
-            if (templateResponse.checkNull(checkIdKry)) {
+            if ( templateResponse.checkNull(checkIdKry) ) {
                 return templateResponse.templateError("Id Barang Not found");
             }
 
@@ -112,7 +112,7 @@ public class KaryawanImpl implements KaryawanService {
             checkIdKry.setUpdated_date(date);
             Karyawan dosave = karyawanRepository.save(checkIdKry);
             return templateResponse.templateSukses(dosave);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             return templateResponse.templateError(e);
         }
 
@@ -121,49 +121,51 @@ public class KaryawanImpl implements KaryawanService {
     @Override
     public Map updateKryAndDetail(Karyawan karyawan) {
 //        1. validasi
-     try {
-         if (templateResponse.checkNull(karyawan.getNama())) {
-             return templateResponse.templateError("Nama is Requiered");
-         }
-//            2. check detail
-         if (templateResponse.checkNull(karyawan.getDetailKaryawan())) {
-             return templateResponse.templateError("Pembeli Detail is Requiered");
-         }
-         if (templateResponse.checkNull(karyawan.getDetailKaryawan().getNik())) {
-             return templateResponse.templateError("Hp is Requiered");
-         }
-         //check id karyawan
-         Karyawan updateKaryawan = karyawanRepository.getByID(karyawan.getId());
-         if (templateResponse.checkNull(updateKaryawan)) {
-             return templateResponse.templateError("Pembeli tidak ada di database");
-         }
+        try {
+            if ( templateResponse.checkNull(karyawan.getNama()) ) {
+                return templateResponse.templateError("Nama is Requiered");
+            }
+            if ( templateResponse.checkNull(karyawan.getDetailKaryawan()) ) {
+                return templateResponse.templateError("Detail Karyawan is Requiered");
+            }
+            if ( templateResponse.checkNull(karyawan.getDetailKaryawan().getNik()) ) {
+                return templateResponse.templateError("NIK Karyawan is Requiered");
+            }
+            //check id karyawan
+            Karyawan updateKaryawan = karyawanRepository.getByID(karyawan.getId());
+            if ( templateResponse.checkNull(updateKaryawan) ) {
+                return templateResponse.templateError("Karyawan tidak ada di database");
+            }
 //            3. update karyawan
-         updateKaryawan.setNama(karyawan.getNama());
-         updateKaryawan.setJk(karyawan.getJk());
-         updateKaryawan.setDob(karyawan.getDob());
-         updateKaryawan.setAlamat(karyawan.getAlamat());
-         updateKaryawan.setStatus(karyawan.getStatus());
-         updateKaryawan.getDetailKaryawan().setNik(karyawan.getDetailKaryawan().getNik());
-         updateKaryawan.getDetailKaryawan().setNpwp(karyawan.getDetailKaryawan().getNpwp());
+            updateKaryawan.setId(karyawan.getId());
+            updateKaryawan.setNama(karyawan.getNama());
+            updateKaryawan.setJk(karyawan.getJk());
+            updateKaryawan.setDob(karyawan.getDob());
+            updateKaryawan.setAlamat(karyawan.getAlamat());
+            updateKaryawan.setStatus(karyawan.getStatus());
+            updateKaryawan.setUpdated_date(new Date());
+            updateKaryawan.getDetailKaryawan().setNik(karyawan.getDetailKaryawan().getNik());
+            updateKaryawan.getDetailKaryawan().setNpwp(karyawan.getDetailKaryawan().getNpwp());
 
 //            4. do update ke database
-         Karyawan updateKryAndDetail = karyawanRepository.save(updateKaryawan);
-         return templateResponse.templateSukses(updateKryAndDetail);
-     } catch( Exception e) {
-         return templateResponse.templateError(e);
-     }
-}
+            Karyawan updateKryAndDetail = karyawanRepository.save(updateKaryawan);
+            return templateResponse.templateSukses(updateKryAndDetail);
+        } catch ( Exception e ) {
+            return templateResponse.templateError(e);
+        }
+    }
 
 
     @Override
     public Map delete(Long karyawan) {
         try {
-            if (templateResponse.checkNull(karyawan)) {
+            if ( templateResponse.checkNull(karyawan) ) {
                 return templateResponse.templateError("Id Karyawan is required");
             }
 
             Karyawan checkIdKaryawan = karyawanRepository.getByID(karyawan);
-            if (templateResponse.checkNull(checkIdKaryawan)) {
+
+            if ( templateResponse.checkNull(checkIdKaryawan) ) {
                 return templateResponse.templateError("Id Barang Not found");
             }
 
@@ -172,7 +174,7 @@ public class KaryawanImpl implements KaryawanService {
 
             return templateResponse.templateSukses("sukses deleted");
 
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             return templateResponse.templateError(e);
         }
     }
@@ -184,7 +186,7 @@ public class KaryawanImpl implements KaryawanService {
             Pageable show_data = PageRequest.of(page, size);
             Page<Karyawan> list = karyawanRepository.getAllData(show_data);
             return templateResponse.templateSukses(list);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             log.error("ada eror di method getAll:" + e);
             return templateResponse.templateError(e);
         }
@@ -197,12 +199,23 @@ public class KaryawanImpl implements KaryawanService {
             Pageable show_data = PageRequest.of(page, size);
             Page<Karyawan> list = karyawanRepository.findByNama(nama, show_data);
             return templateResponse.templateSukses(list);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             log.error("eror disini findByNama : " + e);
             //menampilkan responose
             return templateResponse.templateError(e);
         }
 
+    }
+
+    @Override
+    public Map findById(Long id) {
+        try {
+            Optional<Karyawan> findKaryawan = karyawanRepository.findById(id);
+            return templateResponse.templateSukses(findKaryawan);
+        } catch ( Exception e ) {
+            log.error("error disini : " + e);
+            return templateResponse.templateError(e);
+        }
     }
 
     @Override
@@ -212,7 +225,7 @@ public class KaryawanImpl implements KaryawanService {
             Page<Karyawan> list = karyawanRepository.findByNamaLike("%" + nama + "%", pageable);
 //             public Page<Karyawan> findByNamaLike(String nama , Pageable pageable);
             return list;
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             // manampilkan di terminal saja
             log.error("ada eror di method findByNamaLike:" + e);
             return null;
