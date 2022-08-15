@@ -2,11 +2,9 @@ package com.abc.abc.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 

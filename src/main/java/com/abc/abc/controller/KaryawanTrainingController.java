@@ -62,7 +62,7 @@ public class KaryawanTrainingController {
 
         if ( namaKaryawan != null ) {
             list = karyawanTrainingRepository.findByKaryawanNamaLike("%" + namaKaryawan + "%", show_data);
-        } else if ( temaTraining != null && !temaTraining.isEmpty() ) {
+        } else if ( temaTraining != null ) {
             list = karyawanTrainingRepository.findByTrainingTemaLike("%" + temaTraining + "%", show_data);
         } else {
             list = karyawanTrainingRepository.findAll(show_data);
