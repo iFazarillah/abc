@@ -1,12 +1,16 @@
 package com.abc.abc.sp.service.impl;
 
 import com.abc.abc.model.Karyawan;
+import com.abc.abc.repository.KaryawanRepository;
 import com.abc.abc.sp.model.KaryawanMybatis;
 import com.abc.abc.sp.repository.KaryawanRepoMybatis;
 import com.abc.abc.sp.service.KaryawanServiceMybatis;
 import com.abc.abc.utils.QueryPS;
 import com.abc.abc.utils.TemplateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,9 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
 
     @Autowired
     KaryawanRepoMybatis karyawanRepoMybatis;
+
+    @Autowired
+    KaryawanRepository karyawanRepository;
     @Autowired
     public TemplateResponse templateResponse;
     @Autowired
@@ -85,6 +92,18 @@ public class KaryawanServiceImplMybatis implements KaryawanServiceMybatis {
     public Map deleteProcedure(int did) {
         karyawanRepoMybatis.deleteProcedure(did);
         return null;
+    }
+
+    @Override
+    public Map listAllKaryawan(int size, int page) {
+        try {
+            Pageable show_data = PageRequest.of(page, size);
+            Page<Karyawan> list = karyawanRepository.getAllData(show_data);
+            return templateResponse.templateSukses(list);
+        } catch ( Exception e ) {
+            System.out.println("ada error");
+            return templateResponse.templateError(e);
+        }
     }
 
 

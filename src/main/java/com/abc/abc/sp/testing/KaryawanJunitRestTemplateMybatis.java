@@ -1,7 +1,6 @@
 package com.abc.abc.sp.testing;
 
 import com.abc.abc.utils.QueryPS;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,6 @@ import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 

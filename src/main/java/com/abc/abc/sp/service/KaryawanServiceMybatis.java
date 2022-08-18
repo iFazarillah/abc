@@ -21,6 +21,8 @@ public interface KaryawanServiceMybatis {
 
     Map deleteProcedure(int did);
 
+    Map listAllKaryawan(int size, int page);
+
 
     //    use xml
 //    public Map updateProcedureXML(BarangMybatis item);

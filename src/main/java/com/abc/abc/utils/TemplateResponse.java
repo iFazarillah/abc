@@ -12,7 +12,7 @@ import java.util.Map;
 @Component
 public class TemplateResponse {
 
-    public Map templateSukses (Object object){
+    public Map templateSukses(Object object) {
         Map map = new HashMap();
         map.put("data", object);
         map.put("message", "Sukses");
@@ -20,7 +20,7 @@ public class TemplateResponse {
         return map;
     }
 
-    public Map templateSukses(Object object, String Message, String status){
+    public Map templateSukses(Object object, String Message, String status) {
         Map map = new HashMap();
         map.put("data", object);
         map.put("message", "Sukses");
@@ -28,14 +28,14 @@ public class TemplateResponse {
         return map;
     }
 
-    public Map templateError(Object object){
+    public Map templateError(Object object) {
         Map map = new HashMap();
         map.put("message", object);
         map.put("status", "404");
         return map;
     }
 
-    public Map notFound(Object object){
+    public Map notFound(Object object) {
         Map map = new HashMap();
         map.put("message", object);
         map.put("status", "404");
@@ -47,7 +47,7 @@ public class TemplateResponse {
 
     }
 
-    public Karyawan convertToKaryawan(KaryawanMybatis obj){
+    public Karyawan convertToKaryawan(KaryawanMybatis obj) {
         Karyawan objKaryawan = new Karyawan();
         objKaryawan.setId(obj.getResid());
         objKaryawan.setNama(obj.getResnama());
@@ -58,12 +58,12 @@ public class TemplateResponse {
         objKaryawan.setCreated_date(obj.getRescreated_date());
         objKaryawan.setUpdated_date(obj.getResupdated_date());
         objKaryawan.setDeleted_date(obj.getResdeleted_date());
-        return  objKaryawan;
+        return objKaryawan;
     }
 
-    public List<Karyawan> convertToKaryawan(List<KaryawanMybatis> list){
-        List<Karyawan> listKaryawan=  new ArrayList<>();
-        for(KaryawanMybatis obj : list){
+    public List<Karyawan> convertToKaryawan(List<KaryawanMybatis> list) {
+        List<Karyawan> listKaryawan = new ArrayList<>();
+        for ( KaryawanMybatis obj : list ) {
             Karyawan objKaryawan = new Karyawan();
             objKaryawan.setId(obj.getResid());
             objKaryawan.setJk(obj.getResjk());
@@ -76,6 +76,8 @@ public class TemplateResponse {
             objKaryawan.setDeleted_date(obj.getResdeleted_date());
             listKaryawan.add(objKaryawan);
         }
-        return  listKaryawan;
+        return listKaryawan;
     }
+
+
 }

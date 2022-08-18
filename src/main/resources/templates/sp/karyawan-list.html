@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    />
+    <title>List Karyawan</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://kit.fontawesome.com/722aff0915.js"
+            crossorigin="anonymous"
+    ></script>
+</head>
+
+<body class="bg-dark d-flex flex-column bd-highlight mb-3">
+<h1 class="text-light d-flex justify-content-center">Karyawan</h1>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto">
+    <div class="container-fluid">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse my-3" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a
+                            class="nav-link active"
+                            aria-current="page"
+                            th:href="@{/v1/view/sp/karyawan/list}"
+                    >
+                        List Karyawan</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Rekening</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Training</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Training Karyawan</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="text-light d-flex justify-content-center">
+    <div class="add-button mx-1 my-2">
+        <a th:href="@{/v1/view/sp/karyawan/add}">
+            <button
+                    type="button"
+                    class="btn btn-outline-light"
+                    th:href="@{/v1/view/sp/karyawan/add}"
+            >
+                <i class="fa-solid fa-plus"></i> Add Karyawan
+            </button>
+        </a>
+    </div>
+
+    <div class="button-return mx-1 my-2 d-flex justify-content-center">
+        <a th:href="@{/v1/view/sp/karyawan/}">
+            <button class="btn btn-outline-light">
+                <i class="fa-solid fa-arrow-left"></i> Back To Index
+            </button>
+        </a>
+    </div>
+</div>
+
+<div
+        class="text-light d-flex justify-content-center wrapper-table mx-3 my-2"
+>
+    <table class="table table-secondary table-hover">
+        <tr>
+            <th>Nama</th>
+            <th>Jenis Kelamin</th>
+            <th>Tanggal Lahir</th>
+            <th>Alamat</th>
+            <th>Status</th>
+            <th>tools</th>
+        </tr>
+        <tr th:each="karyawan : ${karyawans}">
+            <td>
+                <a
+                        class="link-primary"
+                        style="text-decoration: none;"
+                        th:href="@{/v1/view/sp/karyawan/{karyawanId}(karyawanId=${karyawan.id})}"
+                        th:utext="${karyawan.nama}"
+                >...</a
+                >
+            </td>
+            <td>
+                <a th:utext="${karyawan.jk}">...</a>
+            </td>
+            <td>
+                <a th:utext="${karyawan.dob}">...</a>
+            </td>
+            <td>
+                <a th:utext="${karyawan.alamat}">...</a>
+            </td>
+            <td>
+                <a th:utext="${karyawan.status}">...</a>
+            </td>
+            <!--            <td>-->
+            <!--                <a th:utext="${karyawan.nik}">...</a>-->
+            <!--            </td>-->
+            <!--            <td>-->
+            <!--                <a th:utext="${karyawan.npwp}">...</a>-->
+            <!--            </td>-->
+            <td>
+                <div
+                        class="text-light d-flex justify-content-center mx-auto my-1"
+                        th:if="not ${allowDelete}"
+                >
+                    <a
+                            th:href="@{/v1/view/sp/karyawan/{karyawanId}/edit(karyawanId=${karyawan.id})}"
+                    >
+                        <button
+                                type="button"
+                                class="btn btn-outline-success mx-1"
+                        >
+                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
+                    </a>
+
+                    <a
+                            th:href="@{/v1/view/sp/karyawan/{karyawanId}/delete(karyawanId=${karyawan.id})}"
+                    >
+                        <button
+                                type="button"
+                                class="btn btn-outline-danger mx-1"
+                        >
+                            <i class="fa-solid fa-trash-can"></i>
+                            Delete
+                        </button>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/><br/>
+
+<div class="text-light d-flex justify-content-center">
+    <div class="button-prev mx-1 my-2" th:if="${hasPrev}">
+        <a
+                class="link-light"
+                th:href="@{/v1/view/sp/karyawan/list?page={prev}(prev=${prev})}"
+        >
+            <i class="fa-solid fa-angles-left"></i> Prev</a
+        >
+    </div>
+    <div class="button-next mx-1 my-2" th:if="${hasNext}">
+        <a
+                class="link-light"
+                th:href="@{/v1/view/sp/karyawan/list?page={next}(next=${next})}"
+        >
+            Next <i class="fa-solid fa-angles-right"></i
+        ></a>
+    </div>
+</div>
+</body>
+<footer
+        class="text-light d-flex justify-content-center"
+        style="position: fixed; bottom: 0; left: 0; right: 0; height: 40px"
+>
+    Copyright 2021
+</footer>
+</html>
+</html>

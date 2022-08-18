@@ -31,7 +31,8 @@ public class QueryPS {
                         jk,
                         dob,
                         alamat,
-                        status)
+                        status,
+                        created_date)
                             
                 select
                 nextval('Karyawan_id_seq'),
@@ -39,7 +40,8 @@ public class QueryPS {
                 ijk,
                 idob,
                 ialamat,
-                istatus
+                istatus,
+                now()
                 returning id into iid;
                 error_desc = 'sukses';
                 error_code = 619;
