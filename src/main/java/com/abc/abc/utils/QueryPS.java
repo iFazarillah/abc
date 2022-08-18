@@ -7,9 +7,8 @@ public class QueryPS {
 
     public String saveKaryawanOnlySP = """
              CREATE OR REPLACE PROCEDURE public.savekaryawanonly(
-             INOUT inama character varying,
-             INOUT ijk character varying,
-             INOUT idob date,
+             INOUT inama character varying,"
+             INOUT ijk character varying,INOUT idob date,
              INOUT ialamat text,
              INOUT istatus character varying,
              INOUT iid integer,
@@ -24,7 +23,7 @@ public class QueryPS {
             			return;
             		else raise notice 'nama ada';
                 end if;
-                            
+
                 insert into public.karyawan (
                         id,
                         nama,
@@ -33,7 +32,7 @@ public class QueryPS {
                         alamat,
                         status,
                         created_date)
-                            
+
                 select
                 nextval('Karyawan_id_seq'),
                 inama,
@@ -45,11 +44,11 @@ public class QueryPS {
                 returning id into iid;
                 error_desc = 'sukses';
                 error_code = 619;
-                            
-                            
+
+
                 commit;
-                            
-                            
+
+
                 END;
                 $procedure$
                 ;
@@ -67,7 +66,7 @@ public class QueryPS {
             		else
             			raise notice 'id ada';
             		end if;
-            		
+
             		update public.karyawan\s
             		set\s
             			nama = unama,
@@ -77,14 +76,14 @@ public class QueryPS {
             			status = ustatus,
             			updated_date = now()
             		where id = uid returning id into uid;
-            		
+
             		commit;
-            	
+
             	END;
 
             $procedure$
             ;
-                            
+
             """;
 
     public String deleteKryOnly = """
