@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 public class DatabaseSeeder implements ApplicationRunner {
 
-    private static final String TAG = "DatabaseSeeder {}" ;
+    private static final String TAG = "DatabaseSeeder {}";
 
     private Logger logger = LoggerFactory.getLogger(DatabaseSeeder.class);
 
@@ -45,7 +45,7 @@ public class DatabaseSeeder implements ApplicationRunner {
     @Autowired
     private RolePathRepository rolePathRepository;
 
-    private String defaultPassword = "password" ;
+    private String defaultPassword = "password";
 
     private String[] users = new String[]{
             "admin@mail.com:ROLE_SUPERUSER ROLE_USER ROLE_ADMIN",
@@ -119,7 +119,7 @@ public class DatabaseSeeder implements ApplicationRunner {
             if ( null == oldClient ) {
                 oldClient = new Client();
                 oldClient.setClientId(clientName);
-                oldClient.setAccessTokenValiditySeconds(28800);//1 jam 3600 :token valid : seharian kerja : normal 1 jam
+                oldClient.setAccessTokenValiditySeconds(3600);//1 jam 3600 :token valid : seharian kerja : normal 1 jam
                 oldClient.setRefreshTokenValiditySeconds(7257600);// refresh
                 oldClient.setGrantTypes("password refresh_token authorization_code");
                 oldClient.setClientSecret(password);
