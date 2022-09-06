@@ -64,7 +64,7 @@ public class KaryawanControllerMVC {
     public String addKaryawan(Model model, @ModelAttribute("Karyawan") Karyawan karyawan) {
         try {
             System.out.println("nilai karyawan=" + karyawan.getNama());
-            Map data = karyawanService.insertKryOnly(karyawan);
+            Map data = karyawanService.insertKryAndDetail(karyawan);
             Karyawan newKaryawan = (Karyawan) data.get("data");
             return "redirect:/v1/view/karyawan/" + String.valueOf(newKaryawan.getId());
         } catch ( Exception ex ) {
