@@ -31,7 +31,7 @@ public class Karyawan extends AbstractDate implements Serializable {
 
     @Column(name = "dob")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyMMdd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
 
     @Column(name = "alamat", columnDefinition = "TEXT")

@@ -1,93 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-    />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-            crossorigin="anonymous"
-    />
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://kit.fontawesome.com/722aff0915.js"
-            crossorigin="anonymous"
-    ></script>
-    <title>View Employee</title>
-</head>
-<body>
-<h1>View Karyawan</h1>
-<a th:href="@{/v1/view/karyawan/list}">Back to Karyawan List</a>
-<br/><br/>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<meta charset="UTF-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1.0"
+			/>
+			<link
+				href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+				rel="stylesheet"
+				integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+				crossorigin="anonymous"
+			/>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+				crossorigin="anonymous"
+			></script>
+			<script
+				src="https://kit.fontawesome.com/722aff0915.js"
+				crossorigin="anonymous"
+			></script>
+			<title>View Employee</title>
+		</head>
 
-<div th:if="${karyawan}">
-    <table border="0">
-        <tr>
-            <td>Name</td>
-            <td>:</td>
-            <td th:utext="${karyawan.nama}">...</td>
-        </tr>
-        <tr>
-            <td>Jenis Kelamin</td>
-            <td>:</td>
-            <td th:utext="${karyawan.jk}">...</td>
-        </tr>
-        <tr>
-            <td>Tanggal Lahir</td>
-            <td>:</td>
-            <td th:utext="${karyawan.dob}">...</td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td th:utext="${karyawan.alamat}">...</td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td>:</td>
-            <td th:utext="${karyawan.status}">...</td>
-        </tr>
-    </table>
-    <br/><br/>
+		<body class="bg-dark d-flex flex-column bd-highlight mb-3">
+			<h1 class="text-light d-flex justify-content-center">View Employee</h1>
 
-    <div th:if="not ${allowDelete}">
-        <a
-                th:href="@{/v1/view/karyawan/{karyawanId}/edit(karyawanId=${karyawan.id})}"
-        >
-            Edit
-        </a>
-        |
-        <a
-                th:href="@{/v1/view/karyawan/{karyawanId}/delete(karyawanId=${karyawan.id})}"
-        >
-            Delete
-        </a>
-        |
-    </div>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto">
+				<div class="container-fluid">
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-    <form
-            th:if="${allowDelete}"
-            th:action="@{/v1/view/karyawan/{karyawanId}/delete(karyawanId=${karyawan.id})}"
-            method="POST"
-    >
-        Delete this karyawan? <input type="submit" th:value="yes"/>
-    </form>
-</div>
-<div
-        th:if="${errorMessage}"
-        th:utext="${errorMessage}"
-        class="error"
-></div>
-</body>
-</html>
+					<div class="collapse navbar-collapse my-3" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a
+									class="nav-link active"
+									aria-current="page"
+									th:href="@{/v1/view/karyawan/list}"
+								>
+									List of Employee</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Bank Account </a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Training</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Employee Training</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			<div class="button-return mx-auto my-2 d-flex justify-content-center">
+				<a th:href="@{/v1/view/karyawan/list}">
+					<button class="btn btn-outline-light">
+						<i class="fa-solid fa-arrow-left"></i> Back To Employee List
+					</button>
+				</a>
+			</div>
+
+			<div
+				th:if="${karyawan}"
+				class="text-light d-flex justify-content-center mx-auto my-5"
+			>
+				<table border="0">
+					<tr>
+						<td>Name</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.nama}">...</td>
+					</tr>
+					<tr>
+						<td>Gender</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.jk}">...</td>
+					</tr>
+					<tr>
+						<td>Date of Birth</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.dob}">...</td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.alamat}">...</td>
+					</tr>
+					<tr>
+						<td>ID number</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.detailKaryawan.nik}">...</td>
+					</tr>
+					<tr>
+						<td>Tax Id Number</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.detailKaryawan.npwp}">...</td>
+					</tr>
+					<tr>
+						<td>Status</td>
+						<td>&emsp;:&emsp;</td>
+						<td th:utext="${karyawan.status}">...</td>
+					</tr>
+				</table>
+			</div>
+
+			<div
+				class="text-light d-flex justify-content-center mx-auto my-1"
+				th:if="not ${allowDelete}"
+			>
+				<a
+					th:href="@{/v1/view/karyawan/{karyawanId}/edit(karyawanId=${karyawan.id})}"
+				>
+					<button type="button" class="btn btn-outline-success mx-1">
+						<i class="fa-solid fa-pen-to-square"></i> Edit
+					</button>
+				</a>
+
+				<a
+					th:href="@{/v1/view/karyawan/{karyawanId}/delete(karyawanId=${karyawan.id})}"
+				>
+					<button type="button" class="btn btn-outline-danger mx-1">
+						<i class="fa-solid fa-trash-can"></i> Delete
+					</button>
+				</a>
+			</div>
+			<br /><br />
+
+			<form
+				th:if="${allowDelete}"
+				th:action="@{/v1/view/karyawan/{karyawanId}/delete(karyawanId=${karyawan.id})}"
+				method="POST"
+			>
+				Delete this karyawan? <input type="submit" th:value="yes" />
+			</form>
+
+			<div
+				th:if="${errorMessage}"
+				th:utext="${errorMessage}"
+				class="error"
+			></div>
+		</body>
+		<footer
+			class="text-light d-flex justify-content-center"
+			style="position: fixed; bottom: 0; left: 0; right: 0; height: 40px"
+		>
+			Copyright&copy;2022 - Inka Fazarillah
+		</footer>
+	</html>
 </html>

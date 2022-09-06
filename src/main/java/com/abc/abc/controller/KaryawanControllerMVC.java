@@ -28,7 +28,7 @@ public class KaryawanControllerMVC {
     // index page
     @GetMapping(value = { "/", "/index" })
     public String index(Model model) {
-        model.addAttribute("title", "Titel Saya");
+        model.addAttribute("title", "PT ABC Employee Management");
         return "index";
     }
 
